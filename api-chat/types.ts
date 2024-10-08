@@ -1,4 +1,5 @@
 import {Model} from 'mongoose';
+import Message from './models/Message';
 
 export interface UserFields {
   username: string;
@@ -12,3 +13,8 @@ export interface UserMethods {
 }
 
 export type UserModel = Model<UserFields, {}, UserMethods>
+
+export interface IncomingMessage {
+  type: string;
+  payload: string;
+}
