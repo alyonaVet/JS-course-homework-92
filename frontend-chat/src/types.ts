@@ -30,7 +30,15 @@ export interface GlobalError {
   error: string;
 }
 
-export interface Message {
+export interface ChatMessage {
   user: string;
   message: string;
 }
+
+export interface IncomingMessage {
+  username: {
+    username: string;
+  };
+  message: string;
+}
+

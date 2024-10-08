@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
-import {Message} from '../../../types';
+import {ChatMessage} from '../../../types';
 import {useAppSelector} from '../../../app/hooks';
 import {selectUser} from '../../users/usersSlice';
 import {Stack, TextField, Typography} from '@mui/material';
 import {LoadingButton} from '@mui/lab';
 
 interface Props {
-  onSubmit: (message: Message) => void;
+  onSubmit: (message: ChatMessage) => void;
   isLoading: boolean;
 }
 const AddMessageForm: React.FC<Props> = ({onSubmit, isLoading}) => {
   const user = useAppSelector(selectUser);
 
   if (!user) {
-    return (<Typography>You have to be logged in!</Typography>);
+    return (<Typography textAlign={'center'} mt={3}>To send message you have to be logged in!</Typography>);
   }
 
-  const [messageData, setMessageData] = useState<Message>({
+  const [messageData, setMessageData] = useState<ChatMessage>({
     user: user._id,
     message: '',
   });
@@ -31,9 +31,10 @@ const AddMessageForm: React.FC<Props> = ({onSubmit, isLoading}) => {
 
   const submitFormHandler = (event:  React.FormEvent) => {
     event.preventDefault();
+    console.log(messageData);
     onSubmit({...messageData});
     setMessageData({
-      user: '',
+      user: user._id,
       message: ''
     });
   };

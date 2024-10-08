@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import {usersReducer} from '../features/users/usersSlice';
 import {persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore} from 'redux-persist';
+import {messagesReducer} from '../features/chat/MessagesSlice';
 
 
 const usersPersistConfig = {
@@ -11,6 +12,7 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+  messages: messagesReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
 });
 

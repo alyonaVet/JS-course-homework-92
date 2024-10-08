@@ -3,7 +3,6 @@ import {User} from '../../types';
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../app/hooks';
 import {logout} from '../../features/users/usersThunk';
-import {useNavigate} from 'react-router-dom';
 
 interface Props {
   user: User;
@@ -13,7 +12,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,7 +23,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
 
   const handleLogout = async () => {
     await dispatch(logout());
-    navigate('/');
   };
 
   return (

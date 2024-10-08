@@ -8,6 +8,7 @@ export interface UsersState {
   registerError: ValidationError | null;
   loginLoading: boolean;
   loginError: GlobalError | null;
+  onlineUsers: User[],
 }
 
 const initialState: UsersState = {
@@ -16,6 +17,7 @@ const initialState: UsersState = {
   registerError: null,
   loginLoading: false,
   loginError: null,
+  onlineUsers: [],
 }
 
 export const usersSlice = createSlice({
@@ -24,6 +26,12 @@ export const usersSlice = createSlice({
   reducers: {
     unsetUser: (state) => {
       state.user = null;
+    },
+    addOnlineUser(state, action) {
+      state.onlineUsers.push(action.payload);
+    },
+    removeOnlineUser(state, action) {
+      state.onlineUsers = state.onlineUsers.filter(user => user.username !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -56,6 +64,7 @@ export const usersSlice = createSlice({
   },
   selectors: {
     selectUser: (state) => state.user,
+    selectOnlineUsers: (state) => state.onlineUsers,
     selectRegisterLoading: (state) => state.registerLoading,
     selectRegisterError: (state) => state.registerError,
     selectLoginLoading: (state) => state.loginLoading,
@@ -65,12 +74,11 @@ export const usersSlice = createSlice({
 
 export const usersReducer =  usersSlice.reducer;
 
-export const {unsetUser} = usersSlice.actions;
+export const {unsetUser, addOnlineUser, removeOnlineUser} = usersSlice.actions;
 
 export const {
   selectUser,
-  selectRegisterLoading,
+  selectOnlineUsers,
   selectRegisterError,
-  selectLoginLoading,
   selectLoginError,
 } = usersSlice.selectors;
